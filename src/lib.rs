@@ -198,18 +198,6 @@ pub fn get_all_display_devices() -> Vec<DisplayDevice> {
                         break; // Found a name, no need to check other device infos
                     }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_to_wide_string() {
-        assert_eq!(to_wide_string("Hello"), vec![72, 101, 108, 108, 111, 0]);
-        assert_eq!(to_wide_string(""), vec![0]);
-        assert_eq!(to_wide_string("Rust"), vec![82, 117, 115, 116, 0]);
-        assert_eq!(to_wide_string("你好"), vec![20320, 22909, 0]); // Chinese characters
-    }
-}
                     // Use the adapter's device name for setting refresh rates, but the monitor's display name for UI
                     devices.push(DisplayDevice {
                         device_name: adapter_device_name.clone(),
@@ -222,13 +210,6 @@ mod tests {
 
     unsafe { SetupDiDestroyDeviceInfoList(hdevinfo) };
     devices
-}
-
-pub fn get_all_display_device_names() -> Vec<String> {
-    get_all_display_devices()
-        .into_iter()
-        .map(|device| device.device_name)
-        .collect()
 }
 
 pub fn get_primary_display_device_name() -> Option<String> {
