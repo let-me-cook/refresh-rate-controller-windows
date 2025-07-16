@@ -1,0 +1,26 @@
+[package]
+name = "refresh-rate-windows-rs"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "refresh-rate-windows-rs"
+path = "src/main.rs"
+
+[dependencies]
+winapi = { version = "0.3.9", features = [
+    "winuser", "wingdi", "libloaderapi", "shellapi", "errhandlingapi",
+    "winbase", "winnt", "minwindef", "windef", "unknwnbase", "commctrl", "setupapi", "cfgmgr32", "handleapi",
+]}
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1"
+
+[profile.release]
+strip = true
+opt-level = "s"
+lto = true
+codegen-units = 1
